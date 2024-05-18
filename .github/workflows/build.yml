@@ -140,7 +140,7 @@ jobs:
           path: build/Release/win-x86
 
       - name: Download win-arm64
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: win-arm64
           path: build/Release/win-arm64
@@ -170,19 +170,19 @@ jobs:
           path: build/Release/linux-x64
 
       - name: Download linux-x86
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: linux-x86
           path: build/Release/linux-x86
 
       - name: Download linux-arm64
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: linux-arm64
           path: build/Release/linux-arm64
 
       - name: Download linux-arm
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: linux-arm
           path: build/Release/linux-arm
