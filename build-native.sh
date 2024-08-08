@@ -34,7 +34,7 @@ while :; do
         ios)
             _CMakeEnableBitcode=-DENABLE_BITCODE=0
             _CMakeBuildTarget=veldrid-spirv
-            _CMakeGenerator="-G Xcode -T buildsystem=1"
+            _CMakeGenerator="-G Xcode"
             _CMakeExtraBuildArgs="--config Release"
             _OSDir=ios
             ;;
