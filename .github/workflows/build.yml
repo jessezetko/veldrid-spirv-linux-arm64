@@ -50,6 +50,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '2.7.18'
+
       - name: Get Submodules
         run: git submodule update --init --recursive
 
