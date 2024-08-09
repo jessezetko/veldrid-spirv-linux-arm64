@@ -1,5 +1,6 @@
 name: CI
 on:
+  workflow_dispatch:
   create: # when tags are created
   push:
     branches: [ master ]
@@ -9,6 +10,7 @@ jobs:
   native_builds:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: windows-latest
@@ -35,7 +37,7 @@ jobs:
             build_args: release linux-x64
             build_target: linux-x64
             artifact_name: build/Release/linux-x64/libveldrid-spirv.so
-          - os: macos-11
+          - os: macos-latest
             build_args: release osx 'arm64;x86_64'
             build_target: osx
             artifact_name: build/Release/osx/libveldrid-spirv.dylib

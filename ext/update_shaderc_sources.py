@@ -17,7 +17,7 @@ repositories."""
 from operator import attrgetter
 import argparse
 import json
-import distutils.dir_util
+import pathlib
 import os.path
 import subprocess
 import sys
@@ -32,7 +32,7 @@ def command_output(cmd, directory, fail_ok=False):
     Raises a RuntimeError if the command fails to launch or otherwise fails.
     """
     if VERBOSE:
-        print('In {d}: {cmd}'.format(d=directory, cmd=cmd))
+        print(('In {d}: {cmd}'.format(d=directory, cmd=cmd)))
     p = subprocess.Popen(cmd,
                          cwd=directory,
                          stdout=subprocess.PIPE)
@@ -75,7 +75,7 @@ class GoodCommit(object):
                                      self.commit + '^{commit}'],
                                     cwd=self.subdir)
     def Clone(self):
-        distutils.dir_util.mkpath(self.subdir)
+        pathlib.Path(self.subdir).mkdir(parents=True, exist_ok=True)
         command_output(['git', 'clone', self.GetUrl(), '.'], self.subdir)
     def Fetch(self):
         command_output(['git', 'fetch', 'known-good'], self.subdir)
@@ -99,13 +99,13 @@ def main():
                         help="The file containing known-good commits. Default is \'' + KNOWN_GOOD_FILE + '\'.")
     args = parser.parse_args()
     commits = GetGoodCommits(args.known_good_file)
-    distutils.dir_util.mkpath(args.dir)
-    print('Change directory to {d}'.format(d=args.dir))
+    pathlib.Path(args.dir).mkdir(parents=True, exist_ok=True)
+    print(('Change directory to {d}'.format(d=args.dir)))
     os.chdir(args.dir)
     # Create the subdirectories in sorted order so that parent git repositories
     # are created first.
     for c in sorted(commits, key=attrgetter('subdir')):
-        print('Get {n}\n'.format(n=c.name))
+        print(('Get {n}\n'.format(n=c.name)))
         c.Checkout()
     sys.exit(0)
 if __name__ == '__main__':

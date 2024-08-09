@@ -1,4 +1,5 @@
 cmake_minimum_required (VERSION 3.0)
+cmake_policy(SET CMP0057 NEW)
 
 if(IOS)
     include(ios/ios.toolchain.cmake)
