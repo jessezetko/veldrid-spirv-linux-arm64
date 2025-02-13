@@ -48,7 +48,7 @@ jobs:
     name: ${{ matrix.build_target }} Native Build
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -83,7 +83,7 @@ jobs:
       # https://github.com/actions/setup-dotnet/issues/72
       - name: Install .NET
         if: ${{ matrix.build_target == 'win-x64' || matrix.build_target == 'osx' || matrix.build_target == 'linux-x64' }}
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 6.0.x
 
@@ -107,7 +107,7 @@ jobs:
     needs: native_builds
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -165,7 +165,7 @@ jobs:
               rm build/Release/ios/veldrid-spirv.xcframework.zip
 
       - name: Install .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 6.0.x
 
