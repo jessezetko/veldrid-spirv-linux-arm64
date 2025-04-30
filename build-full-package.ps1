@@ -22,9 +22,7 @@ New-Item -ItemType Directory -Force -Path $PSScriptRoot\download\$configuration\
 New-Item -ItemType Directory -Force -Path $PSScriptRoot\download\$configuration\win-x64 | Out-Null
 New-Item -ItemType Directory -Force -Path $PSScriptRoot\download\$configuration\win-arm64 | Out-Null
 New-Item -ItemType Directory -Force -Path $PSScriptRoot\download\$configuration\linux-x64 | Out-Null
-New-Item -ItemType Directory -Force -Path $PSScriptRoot\download\$configuration\linux-x86 | Out-Null
 New-Item -ItemType Directory -Force -Path $PSScriptRoot\download\$configuration\linux-arm64 | Out-Null
-New-Item -ItemType Directory -Force -Path $PSScriptRoot\download\$configuration\linux-arm | Out-Null
 New-Item -ItemType Directory -Force -Path $PSScriptRoot\download\$configuration\osx | Out-Null
 New-Item -ItemType Directory -Force -Path $PSScriptRoot\download\$configuration\ios | Out-Null
 New-Item -ItemType Directory -Force -Path $PSScriptRoot\download\$configuration\android-arm64-v8a | Out-Null
@@ -83,18 +81,6 @@ if( -not $? )
 Write-Host "- libveldrid-spirv.so (x64 Linux)"
 
 $client.DownloadFile(
-    "https://github.com/mellinoe/veldrid-spirv/releases/download/$tag/libveldrid-spirv-x86.so",
-    "$PSScriptRoot/download/$configuration/linux-x86/libveldrid-spirv.so")
-if( -not $? )
-{
-    $msg = $Error[0].Exception.Message
-    Write-Error "Couldn't download libveldrid-spirv.so (x86 Linux). This most likely indicates the Linux native build failed."
-    exit
-}
-
-Write-Host "- libveldrid-spirv.so (x86 Linux)"
-
-$client.DownloadFile(
     "https://github.com/mellinoe/veldrid-spirv/releases/download/$tag/libveldrid-spirv-arm64.so",
     "$PSScriptRoot/download/$configuration/linux-arm64/libveldrid-spirv.so")
 if( -not $? )
@@ -105,18 +91,6 @@ if( -not $? )
 }
 
 Write-Host "- libveldrid-spirv.so (arm64 Linux)"
-
-$client.DownloadFile(
-    "https://github.com/mellinoe/veldrid-spirv/releases/download/$tag/libveldrid-spirv-arm.so",
-    "$PSScriptRoot/download/$configuration/linux-arm/libveldrid-spirv.so")
-if( -not $? )
-{
-    $msg = $Error[0].Exception.Message
-    Write-Error "Couldn't download libveldrid-spirv.so (arm Linux). This most likely indicates the Linux native build failed."
-    exit
-}
-
-Write-Host "- libveldrid-spirv.so (arm Linux)"
 
 $client.DownloadFile(
     "https://github.com/mellinoe/veldrid-spirv/releases/download/$tag/libveldrid-spirv.dylib",
