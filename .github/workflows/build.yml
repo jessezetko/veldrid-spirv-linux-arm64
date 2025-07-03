@@ -34,6 +34,10 @@ jobs:
             build_target: android-x86_64
             artifact_name: build\Release\android-x86_64\libveldrid-spirv.so
           - os: windows-latest
+            build_args: release android x86 --android-ndk '%ANDROID_NDK_HOME%'
+            build_target: android-x86
+            artifact_name: build\Release\android-x86\libveldrid-spirv.so
+          - os: windows-latest
             build_args: release android armeabi-v7a --android-ndk '%ANDROID_NDK_HOME%'
             build_target: android-armeabi-v7a
             artifact_name: build\Release\android-armeabi-v7a\libveldrid-spirv.so
@@ -148,6 +152,12 @@ jobs:
         with:
           name: android-x86_64
           path: build/Release/android-x86_64
+
+      - name: Download android-x86
+        uses: actions/download-artifact@v4
+        with:
+          name: android-x86
+          path: build/Release/android-x86
 
       - name: Download android-armeabi-v7a
         uses: actions/download-artifact@v4

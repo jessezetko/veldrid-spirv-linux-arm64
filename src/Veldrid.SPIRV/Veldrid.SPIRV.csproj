@@ -61,6 +61,10 @@
             <PackagePath>runtimes/android-x64/native</PackagePath>
             <Pack>true</Pack>
         </None>
+        <None Include="$(NativeAssetsPath)android-x86\libveldrid-spirv.so">
+            <PackagePath>runtimes/android-x86/native</PackagePath>
+            <Pack>true</Pack>
+        </None>
     </ItemGroup>
 
     <PropertyGroup>
