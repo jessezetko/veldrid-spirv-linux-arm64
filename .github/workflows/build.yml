@@ -34,10 +34,6 @@ jobs:
             build_target: android-x86_64
             artifact_name: build\Release\android-x86_64\libveldrid-spirv.so
           - os: windows-latest
-            build_args: release android x86 --android-ndk '%ANDROID_NDK_HOME%'
-            build_target: android-x86
-            artifact_name: build\Release\android-x86\libveldrid-spirv.so
-          - os: windows-latest
             build_args: release android armeabi-v7a --android-ndk '%ANDROID_NDK_HOME%'
             build_target: android-armeabi-v7a
             artifact_name: build\Release\android-armeabi-v7a\libveldrid-spirv.so
@@ -45,10 +41,18 @@ jobs:
             build_args: release linux-x64
             build_target: linux-x64
             artifact_name: build/Release/linux-x64/libveldrid-spirv.so
+          - os: ubuntu-22.04
+            build_args: release linux-x86
+            build_target: linux-x86
+            artifact_name: build/Release/linux-x86/libveldrid-spirv.so
           - os: ubuntu-22.04-arm
             build_args: release linux-arm64
             build_target: linux-arm64
             artifact_name: build/Release/linux-arm64/libveldrid-spirv.so
+          - os: ubuntu-22.04-arm
+            build_args: release linux-arm
+            build_target: linux-arm
+            artifact_name: build/Release/linux-arm/libveldrid-spirv.so
           - os: macos-latest
             build_args: release osx 'arm64;x86_64'
             build_target: osx
@@ -90,7 +94,6 @@ jobs:
         run:  |
               cp -r build/Release/ios/veldrid-spirv.xcframework ./
               zip -r ${{ matrix.artifact_name }} veldrid-spirv.xcframework
-
       # We can only run per-platform tests on 64-bit architectures
       # https://github.com/actions/setup-dotnet/issues/72
       - name: Install .NET
@@ -153,12 +156,6 @@ jobs:
           name: android-x86_64
           path: build/Release/android-x86_64
 
-      - name: Download android-x86
-        uses: actions/download-artifact@v4
-        with:
-          name: android-x86
-          path: build/Release/android-x86
-
       - name: Download android-armeabi-v7a
         uses: actions/download-artifact@v4
         with:
@@ -171,11 +168,23 @@ jobs:
           name: linux-x64
           path: build/Release/linux-x64
 
+      - name: Download linux-x86
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-x86
+          path: build/Release/linux-x86
+
       - name: Download linux-arm64
         uses: actions/download-artifact@v4
         with:
           name: linux-arm64
           path: build/Release/linux-arm64
+
+      - name: Download linux-arm
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-arm
+          path: build/Release/linux-arm
 
       - name: Download osx
         uses: actions/download-artifact@v4
@@ -193,7 +202,6 @@ jobs:
         run:  |
               unzip -qq build/Release/ios/veldrid-spirv.xcframework.zip -d build/Release/ios
               rm build/Release/ios/veldrid-spirv.xcframework.zip
-
       - name: Install .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -215,4 +223,3 @@ jobs:
       - name: Publish to nuget.org
         if: startsWith(github.ref, 'refs/tags/')
         run: dotnet nuget push bin\Packages\Release\*.nupkg -s https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}}
-
