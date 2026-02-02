@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <AssemblyName>ppy.Veldrid.SPIRV</AssemblyName>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <DocumentationFile>$(BinDir)\$(AssemblyName).xml</DocumentationFile>
@@ -15,9 +15,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0"/>
-        <PackageReference Include="ppy.Veldrid" Version="4.9.3-g91ce5a6cda"/>
-        <PackageReference Update="Nerdbank.GitVersioning" Version="3.4.255"/>
+        <PackageReference Include="ppy.Veldrid" Version="4.9.69-ga405fe8484"/>
+        <PackageReference Update="Nerdbank.GitVersioning" Version="3.4.255">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
